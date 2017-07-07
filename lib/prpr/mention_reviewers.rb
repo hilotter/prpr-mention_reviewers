@@ -1,7 +1,3 @@
 require "prpr/mention_reviewers/version"
-
-module Prpr
-  module MentionReviewers
-    # Your code goes here...
-  end
-end
+require "prpr/handler/mention_reviewers"
+require "prpr/action/mention_reviewers/mention"

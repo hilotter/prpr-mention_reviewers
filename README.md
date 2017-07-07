@@ -1,8 +1,6 @@
 # Prpr::MentionReviewers
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/prpr/mention_reviewers`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+[Prpr](https://github.com/mzp/prpr) plugin for notifying chat to Pull Request reviewers.
 
 ## Installation
 
@@ -12,28 +10,23 @@ Add this line to your application's Gemfile:
 gem 'prpr-mention_reviewers'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install prpr-mention_reviewers
-
 ## Usage
 
-TODO: Write usage instructions here
+When you assign Pull request reviewers, it post to chat service too.
 
-## Development
+To add chat service, use publisher adapter (e.g. [prpr-slack](https://github.com/mzp/prpr-slack)).
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+## Env
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+For `MENTION_COMMENT_ROOM` and `MENTION_COMMENT_MEMEBRS`, the same setting as [prpr-mention_comment](https://github.com/mzp/prpr-mention_comment) is used.
 
-## Contributing
+```
+MENTION_COMMENT_ROOM - room name to post mention.
+MENTION_COMMENT_MEMEBRS - a file name to map github username to chat service one. (Default: MEMBERS.md)
+MENTION_REVIEWERS_BODY - notification message body. (Default: 'Please review my PR: %{title}')
+```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/prpr-mention_reviewers. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+`%{field_name}` of `REVIEW_LABEL_NOTIFICATION` is replaced with corresponding value in [pull request payload](https://developer.github.com/v3/pulls/#get-a-single-pull-request) (e.g. `title`, or `body`).
 
 ## License
 

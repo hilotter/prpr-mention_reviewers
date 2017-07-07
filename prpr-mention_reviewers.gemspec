@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = "prpr-mention_reviewers"
   spec.version       = Prpr::MentionReviewers::VERSION
   spec.authors       = ["hilotter"]
-  spec.email         = ["hi-sato@hitomedia.jp"]
+  spec.email         = ["hilotter3@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "Prpr plugin for notifying chat to Pull Request reviewers."
+  spec.description   = "When you assign Pull request reviewers, it post to chat service too."
+  spec.homepage      = "https://github.com/hilotter/prpr-reviewer_mention"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "prpr"
   spec.add_development_dependency "bundler", "~> 1.14"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
