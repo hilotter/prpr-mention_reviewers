@@ -20,7 +20,7 @@ module Prpr
           <<-END
 #{mention_targets_body}
 #{comment_body}
-#{pull_request.url}
+#{pull_request.html_url}
           END
         end
 
