@@ -3,16 +3,13 @@ module Prpr
     module MentionReviewers
       class Mention < Base
         def call
-          if to_dm?
-            reviewer_mention_names.each { |name| Publisher::Adapter::Base.broadcast message(name) }
-          else
-            Publisher::Adapter::Base.broadcast message
-          end
+          Publisher::Adapter::Base.broadcast message
         end
 
         private
 
-        def message(channel = room)
+        def message
+          channel = to_dm? ? reviewer_mention_name : room
           Prpr::Publisher::Message.new(body: body, from: from, room: channel)
         end
 
@@ -20,16 +17,16 @@ module Prpr
           event.pull_request
         end
 
+        def requested_reviewer
+          event.requested_reviewer
+        end
+
         def body
           <<-END
-#{mention_targets_body}
+#{reviewer_mention_name}
 #{comment_body}
 #{pull_request.html_url}
           END
-        end
-
-        def mention_targets_body
-          reviewer_mention_names.join(' ')
         end
 
         def comment_body
@@ -37,12 +34,12 @@ module Prpr
           comment.empty? ? "Please review my PR: #{pull_request.title}" : comment
         end
 
-        def reviewer_mention_names
-          reviewers.map { |old| members[old] || old }
+        def reviewer_mention_name
+          members[reviewer] || reviewer
         end
 
-        def reviewers
-          @reviewers ||= pull_request.requested_reviewers.map { |r| "@#{r.login}" }
+        def reviewer
+          "@#{requested_reviewer.login}"
         end
 
         def from
