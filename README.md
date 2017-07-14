@@ -24,6 +24,7 @@ For `MENTION_COMMENT_ROOM` and `MENTION_COMMENT_MEMEBRS`, the same setting as [p
 MENTION_COMMENT_ROOM - room name to post mention.
 MENTION_COMMENT_MEMEBRS - a file name to map github username to chat service one. (Default: MEMBERS.md)
 MENTION_REVIEWERS_BODY - notification message body. (Default: 'Please review my PR: %{title}')
+MENTION_REVIEWERS_TO_DM - notify Direct Message instead of MENTION_COMMENT_ROOM. (Default: false)
 ```
 
 `%{field_name}` of `REVIEW_LABEL_NOTIFICATION` is replaced with corresponding value in [pull request payload](https://developer.github.com/v3/pulls/#get-a-single-pull-request) (e.g. `title`, or `body`).

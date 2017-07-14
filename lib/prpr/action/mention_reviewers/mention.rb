@@ -3,13 +3,17 @@ module Prpr
     module MentionReviewers
       class Mention < Base
         def call
-          Publisher::Adapter::Base.broadcast message
+          if to_dm?
+            reviewer_mention_names.each { |name| Publisher::Adapter::Base.broadcast message(name) }
+          else
+            Publisher::Adapter::Base.broadcast message
+          end
         end
 
         private
 
-        def message
-          Prpr::Publisher::Message.new(body: body, from: from, room: room)
+        def message(channel = room)
+          Prpr::Publisher::Message.new(body: body, from: from, room: channel)
         end
 
         def pull_request
@@ -73,6 +77,10 @@ module Prpr
 
         def repository_name
           event.repository.full_name
+        end
+
+        def to_dm?
+          env[:mention_reviewers_to_dm] == 'true'
         end
       end
     end
